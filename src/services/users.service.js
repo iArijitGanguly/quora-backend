@@ -30,6 +30,11 @@ class UserService {
         return user;
     }
 
+    async getUser(userId) {
+        const user = await this.userRepository.getUser(userId);
+        return user;
+    }
+
 }
 
 module.exports = UserService;

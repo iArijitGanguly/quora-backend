@@ -23,9 +23,15 @@ async function addUser(req, res, next) {
     }
 }
 
-function getUser(req, res, next) {
+async function getUser(req, res, next) {
     try {
-        throw new NotImplemented('getUser');
+        const response = await userService.getUser(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Successfully fetched a user',
+            error: {},
+            data: response
+        });
     } catch (error) {
         next(error);
     }
