@@ -28,7 +28,7 @@ async function getUser(req, res, next) {
         const response = await userService.getUser(req.params.id);
         return res.status(StatusCodes.OK).json({
             success: true,
-            message: 'Successfully fetched a user',
+            message: 'Successfully fetched an user',
             error: {},
             data: response
         });
@@ -37,9 +37,15 @@ async function getUser(req, res, next) {
     }
 }
 
-function updateUser(req, res, next) {
+async function updateUser(req, res, next) {
     try {
-        throw new NotImplemented('updateUser');
+        const response = await userService.updateUser(req.params.id, req.body);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Successfully updated an user',
+            error: {},
+            data: response
+        });
     } catch (error) {
         next(error);
     }

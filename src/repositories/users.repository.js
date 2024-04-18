@@ -12,7 +12,6 @@ class UserRepository {
             });
             return user;
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -25,7 +24,18 @@ class UserRepository {
             }
             return user;
         } catch (error) {
-            console.log(error);
+            throw error;
+        }
+    }
+
+    async updateUser(id, updatedData) {
+        try {
+            const user = await User.findByIdAndUpdate(id, updatedData, {new: true});
+            if(!user) {
+                throw new NotFound('User', id);
+            }
+            return user;
+        } catch (error) {
             throw error;
         }
     }
