@@ -1,20 +1,37 @@
 const NotImplemented = require('../errors/notImplemented.error');
+const { QuestionService } = require('../services');
+const { QuestionRepository } = require('../repositories');
+const { StatusCodes } = require('http-status-codes');
+
+const questionService = new QuestionService(new QuestionRepository());
 
 function pingQuestionController(req, res) {
     return res.json({message: 'question controller is up'});
 }
 
-function addQuestion(req, res, next) {
+async function addQuestion(req, res, next) {
     try {
-        throw new NotImplemented('addQuestion');
+        const response = await questionService.createQuestion(req.body);
+        return res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: 'Successfully created a new question',
+            error: {},
+            data: response
+        });
     } catch (error) {
         next(error);
     }
 }
 
-function getQuestion(req, res, next) {
+async function getQuestion(req, res, next) {
     try {
-        throw new NotImplemented('getQuestion');
+        const response = await questionService.searchQuestions(req.query);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Successfully fetched all the matching questions',
+            error: {},
+            data: response
+        });
     } catch (error) {
         next(error);
     }

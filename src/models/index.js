@@ -1,3 +1,4 @@
 module.exports = {
-    User: require('./users.model')
+    User: require('./users.model'),
+    Question: require('./questions.model')
 };
